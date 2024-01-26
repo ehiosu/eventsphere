@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env
+prisma/migrations/20240125092427_init/migration.sql
+prisma/migrations/20240125134042_update_to_events_model/migration.sql
+prisma/migrations/20240125155030_remove_ticket_end_sale_attribute/migration.sql
+prisma/migrations/20240125232739_update_to_models_and_relationships/migration.sql

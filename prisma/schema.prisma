@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum eventStatus {
+  Scheduled
+  Ongoing
+  Cancelled
+  Completed
+}
+
+model Event {
+  id                String          @id @default(uuid())
+  ownerId           String
+  event_title       String
+  description       String
+  event_start_date  DateTime        @default(now())
+  event_end_date    DateTime        @default(now())
+  price             String
+  event_image       String
+  category          Category        @relation("Event Categories", fields: [categoryId], references: [id])
+  category_id       String
+  event_description String
+  event_location    String
+  createdAt         DateTime        @default(now())
+  isFree            Boolean
+  event_url         String?
+  organizer         Json
+  tickets_available Int
+  accessibilities   Accessibility[] @relation("Event Accessibilities")
+  age_restriction   Json
+  timezone          String
+  categoryId        String
+}
+
+model Category {
+  id             String  @id @default(uuid())
+  category_title String
+  events         Event[] @relation("Event Categories")
+  event_id       String
+}
+
+model Accessibility {
+  id                String @id @default(uuid())
+  accesibility_name String
+  event             Event  @relation("Event Accessibilities", fields: [event_id], references: [id])
+  event_id          String
+}
