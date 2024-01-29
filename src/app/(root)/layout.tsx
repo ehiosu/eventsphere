@@ -1,7 +1,7 @@
 import Footer from "@/components/shared/footer";
 import Header from "@/components/shared/header";
+import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
-
 export const metadata:Metadata={
   title:"Eventsphere",
   description:"Craft unforgettable events effortlessly with EventSphere.",
@@ -17,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
+
         <div className="flex flex-col h-screen">
           <Header />
+          <Toaster/>
           <main className="flex-1">{children}</main> 
           <Footer />
         </div>
