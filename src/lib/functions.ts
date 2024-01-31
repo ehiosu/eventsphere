@@ -1,7 +1,8 @@
 import Error from "next/error"
 import { Category } from "./types"
-
-export const getEvents=async ()=>{
+import prisma from "./prisma"
+import { cache } from "react"
+export const getEvents=cache( async ()=>{
     try{
         const events = await prisma?.event.findMany({
             take:20,
@@ -18,22 +19,19 @@ export const getEvents=async ()=>{
     catch(err){
         return []
     }
-  }
+  })
 
-export const getCategories=async (): Promise<Category[]> =>{
+export const getCategories= cache(async (): Promise<Category[]> =>{
     try{
-        const categories = await prisma?.category.findMany({
-            select:{
-                id:true,
-                category_title:true
-            }
-        })
-        return categories ?? []
+        const categories = await prisma?.category.findMany()
+        return categories as Category[]
     }catch(err ){
+      console.log(err)
         return []
     }
-}
+})
 export const fetchCategories = async (): Promise<Category[]> => {
-    const categories = await Promise.all([getCategories()]);
-    return categories[0]; // Since Promise.all returns an array of results
+    const categories = await getCategories()
+    console.log(categories)
+    return categories 
 };
