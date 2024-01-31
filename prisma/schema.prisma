@@ -26,7 +26,7 @@ model Event {
   event_end_date    DateTime        @default(now())
   price             String
   event_image       String
-  category          Category        @relation("Event Categories", fields: [categoryId], references: [id])
+  category          Category        @relation("Event Categories", fields: [category_id], references: [id])
   category_id       String
   event_description String
   event_location    String
@@ -38,12 +38,11 @@ model Event {
   accessibilities   Accessibility[] @relation("Event Accessibilities")
   age_restriction   Json
   timezone          String
-  categoryId        String
 }
 
 model Category {
   id             String  @id @default(uuid())
-  category_title String
+  category_title String  @unique
   events         Event[] @relation("Event Categories")
   event_id       String
 }
