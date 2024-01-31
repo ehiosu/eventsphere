@@ -46,8 +46,8 @@ export interface Category {
       description:z.string().min(3).max(250,{
         message:"Your Description Must not exceed 250 characters!"
       }),
-      price:z.string(),
-      event_image:z.string().optional(),
+      price:z.string().optional().default(""),
+      event_image:z.string().optional().default("https://cdn.leonardo.ai/users/be34e3d9-8456-49f8-b15a-dda75af03b5d/generations/098b2010-c9db-464d-8d00-ea2552f979bb/variations/alchemyrefiner_alchemymagic_0_098b2010-c9db-464d-8d00-ea2552f979bb_0.jpg"),
       event_location:z.string(),
       isFree:z.boolean().default(false),
       tickets_available:z.string(),
@@ -59,3 +59,7 @@ export interface Category {
     title:z.string().min(3).max(32)
   })
   export type createCategoryFormType=z.infer<typeof createCategoryFormSchema>
+
+  export type eventOrganizer={
+    username:string
+  }
